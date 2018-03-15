@@ -12,20 +12,42 @@ class Scanner extends Component {
 				this.alertpresent = true
 				this.camera.stopPreview()
 				if (this.props.found) {
-					let this.alertTxt = 'Found'
+					Alert.alert(
+						'Result',
+						'Found',
+						[
+							{
+								text: 'OK',
+								onPress: () => {
+									this.resetState()
+								}
+							}
+						],
+						{ cancelable: false }
+					)
 				} else {
-					let this.alertTxt = 'Not Found'
+					Alert.alert(
+						'Result',
+						'Not Found',
+						[
+							{
+								text: 'OK',
+								onPress: () => {
+									this.resetState()
+								}
+							}
+						],
+						{ cancelable: false }
+					)
 				}
-				Alert.alert({this.alertTxt},
-					[
-						{'OK',onPress:()=>{
-							this.alertpresent = false
-							this.camera.startPreview()
-							this.props.resetSt()
-						}}
-					])
 			}
 		}
+	}
+
+	resetState() {
+		this.alertpresent = false
+		this.camera.startPreview()
+		this.props.resetSt
 	}
 
 	render() {
@@ -50,7 +72,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		checkCode: (code) => dispatch(checkBarCode(code))
+		checkCode: (code) => dispatch(checkBarCode(code)),
 		resetSt: () => dispatch(resetSt())
 	}
 }
